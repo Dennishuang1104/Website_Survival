@@ -8,7 +8,7 @@ import pandas as pd
 import os, csv
 
 def main():
-    # Google sheet 取得越南優惠資料
+    # Google sheet 取得網址Link
     sheet = SheetAdaptor()
     source_sheet = sheet.get_twitter_data()
     my_headers = {"user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 "
@@ -58,10 +58,10 @@ def main():
     if not os.path.exists(envi.result_csv):
         with open(envi.result_csv, 'w', newline='') as csv_file:
             result = csv.writer(csv_file)
-            result.writerow(['娛樂廳連結', '擷取代號'])
+            result.writerow(['連結', '代號'])
     result = pd.read_csv(envi.result_csv)
-    result['娛樂廳連結'] = pd.Series(link)
-    result['擷取代號'] = pd.Series(promotion_id)
+    result['連結'] = pd.Series(link)
+    result['代號'] = pd.Series(promotion_id)
     result[f'{date_time}_result'] = pd.Series(website_status)
     result.to_csv(envi.result_csv)
     webdriver.do_bot_close()
